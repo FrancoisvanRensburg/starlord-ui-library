@@ -9,6 +9,8 @@ import { usePrevious } from './hooks/usePrevious';
 import { useTabs } from './hooks/useTabs';
 import { useMediaQuery } from './hooks/useMediaQuery';
 import { Loader } from './Loader';
+import { Button } from './Button';
+import {Modal} from './Modal';
 import * as addressUtils from './utils/addressUtils';
 import * as cacheUtils from './utils/cacheUtils';
 import * as dateUtils from './utils/dateUtils';
@@ -62,4 +64,6 @@ export {
   tagUtils,
   validationUtils,
   Loader,
+  Button,
+  Modal,
 };
