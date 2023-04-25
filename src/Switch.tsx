@@ -1,7 +1,7 @@
-import React from "react"
+import React, { HTMLAttributes } from 'react';
 import { Switch as HeadlessSwitch } from "@headlessui/react";
 
-export interface IProps {
+export interface ISwitchProps extends HTMLAttributes<HTMLDivElement> {
   checked: boolean;
   disabled?: boolean;
   onChange: any;
@@ -10,7 +10,7 @@ export interface IProps {
   containerClassName?: string;
 }
 
-export function Switch(props: IProps) {
+export function Switch(props: ISwitchProps) {
   let { checked, label, disabled, containerClassName } = props;
 
   return (

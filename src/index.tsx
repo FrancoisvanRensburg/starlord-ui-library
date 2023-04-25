@@ -1,5 +1,5 @@
 import React, { FC, HTMLAttributes, ReactChild } from 'react';
-import { Switch } from './Switch';
+import {Switch, ISwitchProps} from './Switch';
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   /** custom content, defaults to 'the snozzberries taste like snozzberries' */
@@ -15,4 +15,4 @@ export const Thing: FC<Props> = ({ children }) => {
   return <div>{children || `the snozzberries taste like snozzberries`}</div>;
 };
 
-export {Switch}
+export {Switch, ISwitchProps}
