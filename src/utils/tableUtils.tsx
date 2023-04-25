@@ -1,8 +1,9 @@
-import * as numberUtils from "./numberUtils";
-import { Loader } from "./../Loader";
+import React from 'react';
+import * as numberUtils from './numberUtils';
+import { Loader } from './../Loader';
 
-import { Link } from "react-router-dom";
-import moment from "moment";
+import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 function getTableCountString(
   label: string,
@@ -12,37 +13,40 @@ function getTableCountString(
   page: number,
   selectedCount?: number
 ) {
-  let displayString = "";
+  let displayString = '';
 
   if (selectedCount) {
-    displayString = selectedCount + " selected";
+    displayString = selectedCount + ' selected';
   } else if (dataArray && dataArray.length > 0) {
     let recordsCountFrom = page * lastTableState.pageSize + 1;
-    let recordsCountTo = Math.min(totalCount, recordsCountFrom + lastTableState.pageSize - 1);
+    let recordsCountTo = Math.min(
+      totalCount,
+      recordsCountFrom + lastTableState.pageSize - 1
+    );
 
     if (recordsCountTo === 0 || !recordsCountTo) {
       return <div />;
     }
 
-    if (totalCount <= 1 && label.endsWith("s")) {
+    if (totalCount <= 1 && label.endsWith('s')) {
       label = label.substring(0, label.length - 1);
 
-      if (label.endsWith("ie")) {
-        label = label.substring(0, label.length - 2) + "y";
+      if (label.endsWith('ie')) {
+        label = label.substring(0, label.length - 2) + 'y';
       }
     }
 
     let totalCountString = numberUtils.formatNumber(totalCount, true, true);
     if (totalCount >= 50000) {
-      totalCountString = "50 000+";
+      totalCountString = '50 000+';
     }
 
     displayString =
       `Showing ${recordsCountFrom}` +
-      (recordsCountFrom !== recordsCountTo ? `–${recordsCountTo}` : "") +
+      (recordsCountFrom !== recordsCountTo ? `–${recordsCountTo}` : '') +
       ` of ${totalCountString} ` +
       label;
-  } else displayString = "";
+  } else displayString = '';
 
   return displayString;
 }
@@ -65,14 +69,14 @@ function getTableCountDivWithDateRangeIndication(
     isBold = true;
   }
   if (!absolute_query) {
-    absolute_query = "date_range";
+    absolute_query = 'date_range';
   }
 
   if (startDate) {
-    startDate = moment(startDate).startOf("day");
+    startDate = moment(startDate).startOf('day');
   }
   if (endDate) {
-    endDate = moment(endDate).endOf("day");
+    endDate = moment(endDate).endOf('day');
   }
 
   let displayString = getTableCountString(
@@ -85,24 +89,24 @@ function getTableCountDivWithDateRangeIndication(
   );
 
   if (!displayString) {
-    displayString = "0 " + label;
+    displayString = '0 ' + label;
   }
 
-  let timeRangeString = "";
-  if (absolute_query === "month") {
-    timeRangeString = " for the selected month";
-  } else if (absolute_query === "date_range") {
+  let timeRangeString = '';
+  if (absolute_query === 'month') {
+    timeRangeString = ' for the selected month';
+  } else if (absolute_query === 'date_range') {
     // date range
     let duration = moment.duration(moment(endDate).diff(moment(startDate)));
     let days = Math.ceil(duration.asDays());
     let weeks = Math.round(duration.asWeeks());
     let timeCount = days % 7 !== 0 ? days : Math.round(weeks);
-    let timeUnit = days % 7 !== 0 ? "day" : "week";
+    let timeUnit = days % 7 !== 0 ? 'day' : 'week';
     timeRangeString =
       !endDate || !startDate
-        ? ""
-        : ` for the selected ${timeCount === 1 ? "" : timeCount} ${timeUnit}${
-            timeCount === 1 ? "" : "s"
+        ? ''
+        : ` for the selected ${timeCount === 1 ? '' : timeCount} ${timeUnit}${
+            timeCount === 1 ? '' : 's'
           }`;
   } else {
     // date period
@@ -118,7 +122,7 @@ function getTableCountDivWithDateRangeIndication(
 
       timeRangeString = ` for the ${_absoluteQuery[0].label.toLowerCase()}`;
     } catch (e) {
-      timeRangeString = "";
+      timeRangeString = '';
     }
   }
 
@@ -128,7 +132,7 @@ function getTableCountDivWithDateRangeIndication(
         <Loader.Inline title="Loading" />
       ) : (
         <span className="no-print">
-          <div className={isBold ? "font-bold" : ""}>
+          <div className={isBold ? 'font-bold' : ''}>
             {displayString}
             {timeRangeString}
           </div>
@@ -205,7 +209,7 @@ function linkableTableRow(
           {firstChild}
           <Link
             className={componentClass}
-            to={"/" + path + rest[key] + (queryParams ? queryParams : "")}
+            to={'/' + path + rest[key] + (queryParams ? queryParams : '')}
             {...rest}
           >
             {children}
@@ -215,7 +219,7 @@ function linkableTableRow(
       );
     };
     return cmp;
-  })("rt-tr", "Tr");
+  })('rt-tr', 'Tr');
 }
 
 function clickableTableRow(
@@ -251,9 +255,9 @@ function clickableTableRow(
       // body
       cmp.displayName = displayName;
 
-      if (typeof onClickEvent === "function") {
+      if (typeof onClickEvent === 'function') {
         return (
-          <div className={"flex items-center"}>
+          <div className={'flex items-center'}>
             {firstChild}
             <div
               className={componentClass}
@@ -271,7 +275,7 @@ function clickableTableRow(
       return null;
     };
     return cmp;
-  })("rt-tr", "Tr");
+  })('rt-tr', 'Tr');
 }
 
 function isItemVisible(item: any, visibleItems: any) {
@@ -284,5 +288,5 @@ export {
   linkableTableRow,
   getTableCountDiv,
   getTableCountDivWithDateRangeIndication,
-  getTableCountString
+  getTableCountString,
 };

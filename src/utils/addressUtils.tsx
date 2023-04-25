@@ -1,3 +1,5 @@
+import React from 'react';
+
 function addressObjFromGoogleResult(place: any): {
   company: any;
   street_address: any;
@@ -13,27 +15,27 @@ function addressObjFromGoogleResult(place: any): {
 } {
   // Copied from google API developer guide
   const googleComponentShortOrLong: any = {
-    street_number: "short_name",
-    route: "long_name",
-    sublocality_level_1: "long_name",
-    sublocality_level_2: "long_name",
-    locality: "long_name",
-    administrative_area_level_2: "short_name",
-    administrative_area_level_1: "long_name",
-    country: "short_name",
-    postal_code: "short_name"
+    street_number: 'short_name',
+    route: 'long_name',
+    sublocality_level_1: 'long_name',
+    sublocality_level_2: 'long_name',
+    locality: 'long_name',
+    administrative_area_level_2: 'short_name',
+    administrative_area_level_1: 'long_name',
+    country: 'short_name',
+    postal_code: 'short_name',
   };
 
   var googleAddressObj: any = {};
   googleAddressObj.lat_lng = {
     lat:
-      typeof place.geometry.location.lat === "function"
+      typeof place.geometry.location.lat === 'function'
         ? place.geometry.location.lat()
         : place.geometry.location.lat,
     lng:
-      typeof place.geometry.location.lng === "function"
+      typeof place.geometry.location.lng === 'function'
         ? place.geometry.location.lng()
-        : place.geometry.location.lng
+        : place.geometry.location.lng,
   };
 
   for (var i = 0; i < place.address_components.length; i++) {
@@ -48,9 +50,9 @@ function addressObjFromGoogleResult(place: any): {
 
   // Map to names expected by address form
   var streetAddress = googleAddressObj.street_number
-    ? googleAddressObj.street_number + " " + googleAddressObj.route
+    ? googleAddressObj.street_number + ' ' + googleAddressObj.route
     : googleAddressObj.route;
-  var company = place.types.includes("establishment") ? place.name : "";
+  var company = place.types.includes('establishment') ? place.name : '';
 
   let localArea = [];
 
@@ -71,7 +73,7 @@ function addressObjFromGoogleResult(place: any): {
   const addressObj = {
     company,
     street_address: streetAddress,
-    local_area: localArea.join(", "),
+    local_area: localArea.join(', '),
     city,
     code: googleAddressObj.postal_code,
     zone: googleAddressObj.administrative_area_level_1,
@@ -79,8 +81,8 @@ function addressObjFromGoogleResult(place: any): {
     lat_lng: googleAddressObj.lat_lng,
     lat: googleAddressObj.lat_lng.lat,
     lng: googleAddressObj.lat_lng.lng,
-    entered_address: "",
-    types: place.types
+    entered_address: '',
+    types: place.types,
   };
 
   addressObj.entered_address = generateEnteredAddress(addressObj);
@@ -98,12 +100,12 @@ function formatEnteredAddressLine(
   lineNumber: number | undefined,
   bold: boolean
 ): any {
-  if (!address) return "";
-  if (typeof lineNumber === "undefined") {
+  if (!address) return '';
+  if (typeof lineNumber === 'undefined') {
     lineNumber = 1;
   }
 
-  let arr = address.split(",");
+  let arr = address.split(',');
   if (arr.length >= lineNumber) {
     if (bold) {
       return <b>{arr[lineNumber - 1]}</b>;
@@ -111,12 +113,12 @@ function formatEnteredAddressLine(
     return arr[lineNumber - 1];
   }
 
-  return "";
+  return '';
 }
 
 function formatEnteredAddress(address: string): any {
-  if (!address) return "";
-  return address.split(",").map((line, i) => {
+  if (!address) return '';
+  return address.split(',').map((line, i) => {
     if (i === 0) {
       return (
         <div key={i}>
@@ -129,15 +131,19 @@ function formatEnteredAddress(address: string): any {
 }
 
 function generateEnteredAddress(addressObj: any): string {
-  let { company, street_address, local_area, city, code, zone, country } = addressObj;
+  let { company, street_address, local_area, city, code, zone, country } =
+    addressObj;
 
-  return concatNonEmpty([company, street_address, local_area, city, code, zone, country], ", ");
+  return concatNonEmpty(
+    [company, street_address, local_area, city, code, zone, country],
+    ', '
+  );
 }
 
 function validateAddress(address: any) {
   // existing addresses will not be judged
   if (address.id && address.entered_address) {
-    return "success";
+    return 'success';
   }
 
   let validationItems = [];
@@ -148,31 +154,34 @@ function validateAddress(address: any) {
     address.zone &&
     address.country
   ) {
-    return "success";
+    return 'success';
   } else {
     if (!(address.street_address || address.company)) {
-      validationItems.push("street address or company");
+      validationItems.push('street address or company');
     }
     if (!address.local_area) {
-      validationItems.push("suburb");
+      validationItems.push('suburb');
     }
     if (!address.city) {
-      validationItems.push("city");
+      validationItems.push('city');
     }
     if (!address.zone) {
-      validationItems.push("province/zone");
+      validationItems.push('province/zone');
     }
     if (!address.country) {
-      validationItems.push("country");
+      validationItems.push('country');
     }
   }
 
-  let validationString = validationItems.join(", ");
+  let validationString = validationItems.join(', ');
 
   return `requires the following: ${validationString}`;
 }
 
-function validateGoogleAddressType(addressObj: any, invalidTypes: string[]): boolean {
+function validateGoogleAddressType(
+  addressObj: any,
+  invalidTypes: string[]
+): boolean {
   // place types: https://developers.google.com/maps/documentation/places/web-service/supported_types#table1
   let isValid = true;
   if (addressObj.types) {
@@ -187,22 +196,22 @@ function validateGoogleAddressType(addressObj: any, invalidTypes: string[]): boo
 
 function cleanProvince(province: string) {
   if (province) {
-    province = province.replaceAll("KwaZulu-Natal", "KZN");
-    province = province.replaceAll("KwaZulu Natal", "KZN");
-    province = province.replaceAll("NL", "KZN");
-    province = province.replaceAll("GT", "GP");
-    province = province.replaceAll("Gauteng", "GP");
-    province = province.replaceAll("Freestate", "FS");
-    province = province.replaceAll("Free State", "FS");
-    province = province.replaceAll("Limpopo", "LP");
-    province = province.replaceAll("Mpumalanga", "MP");
-    province = province.replaceAll("North West", "NW");
-    province = province.replaceAll("Eastern Cape", "EC");
-    province = province.replaceAll("Western Cape", "WC");
-    province = province.replaceAll("Northern Cape", "NC");
-    province = province.replaceAll("Eastern-Cape", "EC");
-    province = province.replaceAll("Western-Cape", "WC");
-    province = province.replaceAll("Northern-Cape", "NC");
+    province = province.replaceAll('KwaZulu-Natal', 'KZN');
+    province = province.replaceAll('KwaZulu Natal', 'KZN');
+    province = province.replaceAll('NL', 'KZN');
+    province = province.replaceAll('GT', 'GP');
+    province = province.replaceAll('Gauteng', 'GP');
+    province = province.replaceAll('Freestate', 'FS');
+    province = province.replaceAll('Free State', 'FS');
+    province = province.replaceAll('Limpopo', 'LP');
+    province = province.replaceAll('Mpumalanga', 'MP');
+    province = province.replaceAll('North West', 'NW');
+    province = province.replaceAll('Eastern Cape', 'EC');
+    province = province.replaceAll('Western Cape', 'WC');
+    province = province.replaceAll('Northern Cape', 'NC');
+    province = province.replaceAll('Eastern-Cape', 'EC');
+    province = province.replaceAll('Western-Cape', 'WC');
+    province = province.replaceAll('Northern-Cape', 'NC');
 
     return province;
   }
@@ -211,17 +220,17 @@ function cleanProvince(province: string) {
 
 function provinceAbbreviationToName(province: string) {
   if (province) {
-    province = province.replaceAll("KZN", "KwaZulu-Natal");
-    province = province.replaceAll("NL", "KwaZulu-Natal");
-    province = province.replaceAll("GP", "Gauteng");
-    province = province.replaceAll("GT", "Gauteng");
-    province = province.replaceAll("FS", "Free State");
-    province = province.replaceAll("LP", "Limpopo");
-    province = province.replaceAll("MP", "Mpumalanga");
-    province = province.replaceAll("NW", "North West");
-    province = province.replaceAll("EC", "Eastern Cape");
-    province = province.replaceAll("WC", "Western Cape");
-    province = province.replaceAll("NC", "Northern Cape");
+    province = province.replaceAll('KZN', 'KwaZulu-Natal');
+    province = province.replaceAll('NL', 'KwaZulu-Natal');
+    province = province.replaceAll('GP', 'Gauteng');
+    province = province.replaceAll('GT', 'Gauteng');
+    province = province.replaceAll('FS', 'Free State');
+    province = province.replaceAll('LP', 'Limpopo');
+    province = province.replaceAll('MP', 'Mpumalanga');
+    province = province.replaceAll('NW', 'North West');
+    province = province.replaceAll('EC', 'Eastern Cape');
+    province = province.replaceAll('WC', 'Western Cape');
+    province = province.replaceAll('NC', 'Northern Cape');
     return province;
   }
 
@@ -236,5 +245,5 @@ export {
   validateGoogleAddressType,
   validateAddress,
   cleanProvince,
-  provinceAbbreviationToName
+  provinceAbbreviationToName,
 };

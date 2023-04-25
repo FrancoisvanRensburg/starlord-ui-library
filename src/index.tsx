@@ -8,6 +8,7 @@ import { useGetPagination } from './hooks/useGetPagination';
 import { usePrevious } from './hooks/usePrevious';
 import { useTabs } from './hooks/useTabs';
 import { useMediaQuery } from './hooks/useMediaQuery';
+import { Loader } from './Loader';
 import * as addressUtils from './utils/addressUtils';
 import * as cacheUtils from './utils/cacheUtils';
 import * as dateUtils from './utils/dateUtils';
@@ -60,4 +61,5 @@ export {
   tableUtils,
   tagUtils,
   validationUtils,
+  Loader,
 };
