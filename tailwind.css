@@ -32,9 +32,10 @@
   }
 
   .u-reverse-flex-col-to-row {
-    // content displayed in column in reverse order on xs screens. on sm and larger display content in normal order in row
-    @apply flex flex-col-reverse sm:flex-row space-y-4 sm:space-y-0 space-y-reverse space-x-0 sm:space-x-4;
+  // content displayed in column in reverse order on xs screens. on sm and larger display content in normal order in row
+  @apply flex flex-col-reverse sm:flex-row space-y-4 sm:space-y-0 space-y-reverse space-x-0 sm:space-x-4;
   }
+
 
 
 /* NAV */
