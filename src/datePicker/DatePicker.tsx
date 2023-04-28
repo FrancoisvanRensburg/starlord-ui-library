@@ -7,7 +7,6 @@ import { DatePickerCtx, useDatePickerCtx } from './DatePickerContext';
 import moment from 'moment';
 import { Input } from '../Input';
 import { Label } from '../Label';
-import { InputWithIcon } from '../utils/InputWithIcon';
 
 // Interface
 interface IDatePicker {
@@ -101,7 +100,7 @@ function DatePicker(props: IDatePicker) {
         <Reference>
           {({ ref }) => (
             <div>
-              <InputWithIcon
+              <Input
                 reference={ref}
                 // @ts-ignore
                 onKeyPress={(e: any) => {

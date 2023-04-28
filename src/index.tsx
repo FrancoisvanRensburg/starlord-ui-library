@@ -27,7 +27,6 @@ import { IconWithBackground } from './IconWithBackground';
 import { InfoButton } from './InfoButton';
 import { InfoPopover } from './InfoPopover';
 import { Input } from './Input';
-import { InputWithIcon } from './utils/InputWithIcon';
 import { Label, LabelWithValue } from './Label';
 import { Message } from './Message';
 import { NavItem, NavItemDivider } from './NavItem';
@@ -153,5 +152,4 @@ export {
   LabelWithValue,
   withError,
   Table,
-  InputWithIcon,
 };

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Manager, Reference, Popper } from 'react-popper';
 import { MonthPickerCtx, useMonthPickerCtx } from './MonthPickerContext';
 import moment from 'moment';
-import { InputWithIcon } from '../utils/InputWithIcon';
+import { Input } from '../Input';
 
 interface IMonthPicker {
   dateFrom: Date;
@@ -80,7 +80,7 @@ function MonthPicker(props: IMonthPicker) {
         <Reference>
           {({ ref }) => (
             <div>
-              <InputWithIcon
+              <Input
                 reference={ref}
                 pointer
                 onKeyPress={(e: any) => {

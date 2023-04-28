@@ -5,7 +5,7 @@ import { InfoButton } from './InfoButton';
 import { Label } from './Label';
 import { Manager, Popper, Reference } from 'react-popper';
 import { Button } from './Button';
-import { InputWithIcon } from './utils/InputWithIcon';
+import { Input } from './Input';
 
 // Interface
 interface ISelect extends IBase {
@@ -526,7 +526,7 @@ function GroupedSelect(props: IGroupedSelect) {
                       }
                     >
                       {!noSearch && (
-                        <InputWithIcon
+                        <Input
                           autoFocus={false} // set too false to not make page jump on initial open
                           autoComplete="off"
                           inputId="ui-framework-search"

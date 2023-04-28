@@ -1,11 +1,13 @@
 import React from 'react';
+// import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Select } from './Select';
 import { InfoButton } from './InfoButton';
 import { Label } from './Label';
 import { Message } from './Message';
 
 // Interfaces
-export interface IInputProps {
+interface IInputProps {
   label?: string;
   labelInline?: boolean;
   labelClassName?: string;
@@ -39,6 +41,10 @@ export interface IInputProps {
   inputClassName?: string;
   info?: any;
   inputFieldId?: string;
+  appendIcon?: any;
+  appendIconId?: string;
+  onAppendIconClick?: any;
+  appendIconColor?: string;
   appendText?: string;
   appendPadding?: string;
   appendSelectProps?: any;
@@ -46,6 +52,7 @@ export interface IInputProps {
   prependPadding?: string;
   inputFieldStyle?: any;
   inputId?: string;
+  onClearSearch?: Function;
   prependSelectProps?: any;
   prependTextSize?: string;
   showAsterisk?: boolean;
@@ -53,7 +60,6 @@ export interface IInputProps {
   disableNumericInputScroll?: boolean; // scrolling over a numeric input causes the input value to change
   pointer?: boolean;
   dataTest?: string | undefined;
-  inputClasses?: string;
 }
 // Implementation
 function Input(props: IInputProps) {
@@ -73,7 +79,12 @@ function Input(props: IInputProps) {
     value,
     validationError,
     inputId,
+    appendIcon,
     appendText,
+    appendPadding,
+    appendIconId,
+    onAppendIconClick,
+    appendIconColor,
     optional,
     disabled,
     errorMessage,
@@ -81,6 +92,7 @@ function Input(props: IInputProps) {
     onClick,
     onFocus,
     prependText,
+    prependPadding,
     onBlur,
     containerClassName,
     labelInline,
@@ -95,6 +107,7 @@ function Input(props: IInputProps) {
     info,
     appendSelectProps,
     inputClassName,
+    onClearSearch,
     prependSelectProps,
     prependTextSize,
     showAsterisk,
@@ -102,11 +115,33 @@ function Input(props: IInputProps) {
     disableNumericInputScroll,
     pointer,
     dataTest,
-    inputClasses,
   } = props;
 
   type = type ? type : 'text';
   labelClassName = labelClassName ? labelClassName : '';
+
+  // @ts-ignore
+  let inputClasses = prependPadding
+    ? ` ${prependPadding} `
+    : prependText
+    ? ` pl-7 `
+    : '';
+
+  if (inputClassName) {
+    inputClasses = inputClassName;
+  }
+
+  if (appendPadding) {
+    inputClasses += ` ${appendPadding} `;
+  } else if (appendIcon || appendText || onClearSearch) {
+    if (onClearSearch) {
+      inputClasses += ' pr-20';
+    } else if (appendText && appendText.length > 4) {
+      inputClasses += ' pr-20';
+    } else {
+      inputClasses += ' pr-12';
+    }
+  }
 
   const InputElement = (
     <input
@@ -145,9 +180,8 @@ function Input(props: IInputProps) {
         autoComplete === 'off' ? 'something-chrome-does-not-know' : autoComplete
       } // setting autoComplete to off is not reliable
       className={
-        'u-input-border ' +
-        // 'appearance-none px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary focus:border-transparent shadow-sm block w-full border-gray-300 rounded-md ' +
-        (inputClassName ?? inputClasses) +
+        'focus:outline-none focus:ring-1 focus:ring-primary focus:border-transparent shadow-sm block w-full border-gray-300 rounded-md ' +
+        inputClasses +
         ' ' +
         (disabled ? ' bg-gray-100' : '') +
         (pointer ? ' cursor-pointer' : '')
@@ -205,7 +239,10 @@ function Input(props: IInputProps) {
         <div className={'relative rounded-m w-full'}>
           {prependText && (
             <div
-              className={'absolute inset-y-0 left-0 pl-3 u-vertical-center '}
+              className={
+                'absolute inset-y-0 left-0 pl-3 u-vertical-center ' +
+                (onAppendIconClick ? '' : ' pointer-events-none')
+              }
             >
               <span
                 className={
@@ -219,7 +256,41 @@ function Input(props: IInputProps) {
           )}
 
           {InputElement}
-
+          {(appendIcon || onClearSearch) && (
+            <div
+              className={'absolute inset-y-0 right-0 mr-3 flex items-center'}
+            >
+              {appendIcon && (
+                <div
+                  className={
+                    onAppendIconClick
+                      ? ' cursor-pointer ' + (appendIconColor ?? 'text-primary')
+                      : ' pointer-events-none text-gray-400'
+                  }
+                  id={appendIconId}
+                  onClick={onAppendIconClick ? onAppendIconClick : undefined}
+                >
+                  <FontAwesomeIcon icon={appendIcon} size="sm" />
+                </div>
+              )}
+              {appendIcon && onClearSearch && (
+                <div className="mx-2 pointer-events-none text-gray-200">|</div>
+              )}
+              {onClearSearch && (
+                <div
+                  title="Clear search"
+                  className="cursor-pointer text-gray-400 "
+                  onClick={() => {
+                    if (onClearSearch) {
+                      onClearSearch();
+                    }
+                  }}
+                >
+                  <FontAwesomeIcon icon={'times'} size="sm" />
+                </div>
+              )}
+            </div>
+          )}
           {appendText && (
             <div
               className={
