@@ -7,6 +7,7 @@ import { Label } from './Label';
 import { Message } from './Message';
 
 // Interfaces
+// @ts-ignore
 interface IInputProps {
   label?: string;
   labelInline?: boolean;

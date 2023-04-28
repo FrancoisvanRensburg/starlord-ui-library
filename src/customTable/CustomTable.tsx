@@ -3,7 +3,7 @@ import { Checkbox } from '../Checkbox';
 import { Loader } from '../Loader';
 import { Pagination } from '../Pagination';
 
-import './CustomTable.scss';
+// import './CustomTable.css';
 import * as customTableUtils from './customTableUtils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CustomTableRow from './CustomTableRow';

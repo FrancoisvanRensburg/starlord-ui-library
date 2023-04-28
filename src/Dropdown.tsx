@@ -1,8 +1,14 @@
-import { createContext, Fragment, useEffect, useRef, useState } from "react";
-import { Menu, Transition } from "@headlessui/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { Manager, Popper, Reference } from "react-popper";
+import React, {
+  createContext,
+  Fragment,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import { Menu, Transition } from '@headlessui/react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { Manager, Popper, Reference } from 'react-popper';
 
 // Interface
 interface IDropdown {
@@ -23,17 +29,17 @@ interface IDropdown {
   between?: boolean;
   padding?: string;
   placement?:
-    | "auto"
-    | "auto-start"
-    | "auto-end"
-    | "top-start"
-    | "top-end"
-    | "bottom-start"
-    | "bottom-end"
-    | "right-start"
-    | "right-end"
-    | "left-start"
-    | "left-end";
+    | 'auto'
+    | 'auto-start'
+    | 'auto-end'
+    | 'top-start'
+    | 'top-end'
+    | 'bottom-start'
+    | 'bottom-end'
+    | 'right-start'
+    | 'right-end'
+    | 'left-start'
+    | 'left-end';
 }
 
 interface IMenuItem {
@@ -65,7 +71,7 @@ interface DropdownMenuContextType {
 const DropdownMenuCtx = createContext<DropdownMenuContextType>({
   isVisible: false,
   showDropdownMenu: () => {},
-  hideDropdownMenu: () => {}
+  hideDropdownMenu: () => {},
 });
 
 function useDropdownMenuCtx(
@@ -82,18 +88,18 @@ function useDropdownMenuCtx(
     }
 
     if (isVisible) {
-      document.addEventListener("mousedown", mouseDownListener);
+      document.addEventListener('mousedown', mouseDownListener);
     }
 
     return () => {
-      document.removeEventListener("mousedown", mouseDownListener);
+      document.removeEventListener('mousedown', mouseDownListener);
     };
   }, [isVisible]);
 
   return {
     isVisible,
     showDropdownMenu: () => setVisible(true),
-    hideDropdownMenu: () => setVisible(false)
+    hideDropdownMenu: () => setVisible(false),
   };
 }
 
@@ -113,28 +119,32 @@ function DropdownMenu(props: IDropdown) {
     borderColor,
     leftRounded,
     rightRounded,
-    buttonStyle
+    buttonStyle,
   } = props;
 
   const popupNode = useRef<HTMLElement>();
   const ctxValue = useDropdownMenuCtx(popupNode);
   if (!placement) {
-    placement = "bottom-start";
+    placement = 'bottom-start';
   }
-  let componentPadding = "px-4";
+  let componentPadding = 'px-4';
 
   if (padding) {
     componentPadding = padding;
   }
 
-  widthClass = widthClass ? widthClass : "w-72";
+  widthClass = widthClass ? widthClass : 'w-72';
 
-  color = color ? color : "gray";
+  color = color ? color : 'gray';
 
   return (
     <DropdownMenuCtx.Provider value={ctxValue}>
       <Manager>
-        <div className={`inline-block text-left cursor-pointer ${buttonWidth && buttonWidth}`}>
+        <div
+          className={`inline-block text-left cursor-pointer ${
+            buttonWidth && buttonWidth
+          }`}
+        >
           <Reference>
             {({ ref }) => (
               <div
@@ -147,7 +157,7 @@ function DropdownMenu(props: IDropdown) {
                 <div
                   tabIndex={0}
                   onKeyPress={(e: any) => {
-                    if (e.key === "Enter") {
+                    if (e.key === 'Enter') {
                       if (ctxValue.isVisible) {
                         ctxValue.hideDropdownMenu();
                       } else {
@@ -160,28 +170,36 @@ function DropdownMenu(props: IDropdown) {
                   className={
                     ` u-focus ${
                       leftRounded
-                        ? "rounded-r"
+                        ? 'rounded-r'
                         : rightRounded
-                        ? "rounded-l"
+                        ? 'rounded-l'
                         : square
-                        ? "rounded"
-                        : "rounded-full"
+                        ? 'rounded'
+                        : 'rounded-full'
                     } inline-flex ${
-                      between ? "justify-between" : "justify-center"
+                      between ? 'justify-between' : 'justify-center'
                     } w-full ${componentPadding} font-medium  focus:outline-none ` +
-                    ("text-" + color + " ") +
+                    ('text-' + color + ' ') +
                     (noBackground
-                      ? "my-1 py-1 hover:text-" + color + "-700 font-bold"
+                      ? 'my-1 py-1 hover:text-' + color + '-700 font-bold'
                       : ` py-2 hover:bg-gray-50 border-${borderColor} shadow-sm ${
-                          square ? "rounded" : "rounded-full"
+                          square ? 'rounded' : 'rounded-full'
                         } border bg-white`)
                   }
                 >
-                  {icon && <FontAwesomeIcon icon={icon} className="h-5 w-5" aria-hidden="true" />}
-                  {Boolean(title) && <span className="ml-2 truncate">{title}</span>}
+                  {icon && (
+                    <FontAwesomeIcon
+                      icon={icon}
+                      className="h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  )}
+                  {Boolean(title) && (
+                    <span className="ml-2 truncate">{title}</span>
+                  )}
                   <FontAwesomeIcon
                     icon="caret-down"
-                    className={"-mr-1 ml-2 h-5 w-5" + (title ? " mt-px" : "")}
+                    className={'-mr-1 ml-2 h-5 w-5' + (title ? ' mt-px' : '')}
                     aria-hidden="true"
                   />
                 </div>
@@ -193,13 +211,13 @@ function DropdownMenu(props: IDropdown) {
             placement={placement}
             modifiers={[
               {
-                name: "offset",
+                name: 'offset',
                 options: {
-                  offset: [0, 5]
-                }
-              }
+                  offset: [0, 5],
+                },
+              },
             ]}
-            innerRef={node => (popupNode.current = node)}
+            innerRef={(node) => (popupNode.current = node)}
           >
             {({ ref, style }) =>
               ctxValue.isVisible ? (
@@ -212,7 +230,7 @@ function DropdownMenu(props: IDropdown) {
                   // @ts-ignore
                   style={{ margin: 0, ...style }}
                   className={
-                    "z-50 origin-top-right absolute right-0 rounded-md shadow-lg bg-white u-black-ring focus:outline-none m-1 " +
+                    'z-50 origin-top-right absolute right-0 rounded-md shadow-lg bg-white u-black-ring focus:outline-none m-1 ' +
                     widthClass
                   }
                 >
@@ -230,10 +248,14 @@ function DropdownMenu(props: IDropdown) {
 function ContextMenu(props: IDropdown) {
   let { id, widthClass } = props;
 
-  widthClass = widthClass ? widthClass : "w-72";
+  widthClass = widthClass ? widthClass : 'w-72';
 
   return (
-    <Menu as="div" id={id ? id : "context_menu"} className="relative inline-block text-left">
+    <Menu
+      as="div"
+      id={id ? id : 'context_menu'}
+      className="relative inline-block text-left"
+    >
       <Transition
         show={true}
         as={Fragment}
@@ -247,7 +269,7 @@ function ContextMenu(props: IDropdown) {
         <Menu.Items
           static
           className={
-            "z-10 origin-top-right absolute py-3 right-0 mt-2 rounded-md shadow-lg bg-white u-black-ring focus:outline-none " +
+            'z-10 origin-top-right absolute py-3 right-0 mt-2 rounded-md shadow-lg bg-white u-black-ring focus:outline-none ' +
             widthClass
           }
         >
@@ -264,7 +286,7 @@ function MenuItem(props: IMenuItem) {
   let iconToShow = icon;
 
   if (isLoading) {
-    iconToShow = "sync";
+    iconToShow = 'sync';
   }
 
   return (
@@ -273,7 +295,7 @@ function MenuItem(props: IMenuItem) {
       tabIndex={0}
       className="u-focus rounded-md mx-1"
       onKeyPress={(e: any) => {
-        if (e.key === "Enter" && !disabled) {
+        if (e.key === 'Enter' && !disabled) {
           document.body.click();
           props.onClick();
         }
@@ -283,12 +305,12 @@ function MenuItem(props: IMenuItem) {
         {({ active }) => (
           <div
             className={
-              " group u-vertical-center px-4 py-2 cursor-pointer font-semibold " +
+              ' group u-vertical-center px-4 py-2 cursor-pointer font-semibold ' +
               (disabled
-                ? "bg-gray-100 text-gray-500"
+                ? 'bg-gray-100 text-gray-500'
                 : active
-                ? "bg-gray-100 text-gray-900"
-                : "text-black")
+                ? 'bg-gray-100 text-gray-900'
+                : 'text-black')
             }
             onClick={(e: any) => {
               if (!disabled) {
@@ -308,8 +330,10 @@ function MenuItem(props: IMenuItem) {
                 icon={iconToShow}
                 spin={isLoading}
                 className={
-                  "mr-3 h-5 w-5  " +
-                  (disabled ? "text-gray-500" : "text-black group-hover:text-gray-900")
+                  'mr-3 h-5 w-5  ' +
+                  (disabled
+                    ? 'text-gray-500'
+                    : 'text-black group-hover:text-gray-900')
                 }
                 aria-hidden="true"
               />
@@ -335,7 +359,7 @@ function MenuHeading(props: IMenuHeading) {
         {() => (
           <div
             className={
-              "group flex u-vertical-center px-4 py-2 cursor-pointer font-semibold text-gray-700"
+              'group flex u-vertical-center px-4 py-2 cursor-pointer font-semibold text-gray-700'
             }
           >
             {icon && (
@@ -354,7 +378,7 @@ function MenuHeading(props: IMenuHeading) {
 }
 
 DropdownMenu.defaultProps = {
-  borderColor: "gray-300"
+  borderColor: 'gray-300',
 };
 
 const Dropdown = {
@@ -362,7 +386,7 @@ const Dropdown = {
   MenuItem,
   MenuHeading,
   Menu: DropdownMenu,
-  ContextMenu
+  ContextMenu,
 };
 
 export { Dropdown };

@@ -36,6 +36,112 @@
   @apply flex flex-col-reverse sm:flex-row space-y-4 sm:space-y-0 space-y-reverse space-x-0 sm:space-x-4;
   }
 
+.custom-table-container {
+  background-color: white;
+  box-shadow: 4px 1px 12px 2px #ececec;
+}
+
+.scrollable-table-container {
+  width: 100%;
+  overflow: auto;
+  position: relative;
+}
+
+.custom-table {
+  font: 13px Montserrat !important;
+  width: 100%;
+}
+
+.clone-table {
+  font: 13px Montserrat !important;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.custom-table-tr {
+  text-align: left;
+  border-bottom: none;
+}
+
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+
+.custom-table-th {
+  font-family: Montserrat !important;
+  font-size: 12px;
+  letter-spacing: 0.07em;
+  padding: 0;
+  height: 39px !important;
+  border-bottom: 1px solid #eee;
+  transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #111827;
+  font-weight: 300;
+  background-color: #f7f9fa;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+.custom-table-td {
+  white-space: nowrap;
+}
+
+.draggable {
+  cursor: move;
+  user-select: none;
+}
+
+.placeholder {
+  background-color: lightgray;
+  border: 1px dashed gray;
+}
+
+.clone-list {
+  display: flex;
+}
+
+
+.dragging-column .custom-table-td,
+.dragging-column .custom-table-th {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+
+.dragging {
+  background: white;
+  border: 1px dashed gray;
+  z-index: 999;
+}
+
+.resizer {
+  height: 39px;
+  width: 5px;
+  cursor: col-resize;
+}
+
+.resizer:hover {
+  background-color: lightgray;
+}
+
+.resizer-placeholder {
+  height: 39px;
+  width: 5px;
+  cursor: default;
+}
+
+.resizable {
+  background-color: lightgray !important;
+}
+
+.no-data {
+  position: absolute;
+  left: 50%;
+  margin-top: 50px;
+  z-index: 60;
+}
 
 
 /* NAV */
