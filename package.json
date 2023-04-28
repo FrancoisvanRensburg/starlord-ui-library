@@ -1,5 +1,5 @@
 {
-  "version": "0.1.217-beta",
+  "version": "0.1.218-beta",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -89,6 +89,7 @@
     "detect-browser": "^5.3.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
+    "react-error-boundary": "^4.0.4",
     "react-popper": "^2.3.0",
     "react-router-dom": "5.2.0",
     "uuid": "^9.0.0"
