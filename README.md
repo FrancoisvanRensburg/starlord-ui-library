@@ -6,11 +6,11 @@ To get you started, let's install the library
 
 ## Installation
 
-> npm install starlord-ui-library
+`npm install starlord-ui-library`
 
 or
 
-> yarn add starlord-ui-library
+`yarn add starlord-ui-library`
 
 The library is built with Tailwind CSS and TypeScript. To use the library, you need to install Tailwind CSS and its dependencies.
 
