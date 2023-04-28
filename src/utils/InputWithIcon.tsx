@@ -34,10 +34,12 @@ function InputWithIcon(props: any) {
   }
 
   return (
-    <div>
+    <div className={'flex items-center'}>
       <Input {...restProps} inputClasses={inputClasses} />
       {(appendIcon || onClearSearch) && (
-        <div className={'absolute inset-y-0 right-0 mr-3 flex items-center'}>
+        <div
+          className={'absolute inset-y-0 right-0 mr-3 mt-4 flex items-center'}
+        >
           {appendIcon && (
             <div
               className={
