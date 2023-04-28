@@ -27,13 +27,15 @@ import { IconWithBackground } from './IconWithBackground';
 import { InfoButton } from './InfoButton';
 import { InfoPopover } from './InfoPopover';
 import { Input } from './Input';
-import { Label } from './Label';
+import { InputWithIcon } from './utils/InputWithIcon';
+import { Label, LabelWithValue } from './Label';
 import { Message } from './Message';
-import { NavItem } from './NavItem';
+import { NavItem, NavItemDivider } from './NavItem';
 import { NewVersionAvailable } from './NewVersionAvailable';
 import { PageHeading } from './PageHeading';
 import { Pagination } from './Pagination';
 import { Radio } from './Radio';
+import { Table } from './Table';
 import {
   TableActionsPanel,
   SectionActionsPanel,
@@ -50,6 +52,7 @@ import { Tabs } from './Tabs';
 import { Textarea } from './Textarea';
 import { createStore, useStore, withStore } from './store';
 import { WeekdaySelect } from './WeekdaySelect';
+import { withError } from './errorBoundary/withError';
 import * as addressUtils from './utils/addressUtils';
 import * as cacheUtils from './utils/cacheUtils';
 import * as dateUtils from './utils/dateUtils';
@@ -124,6 +127,7 @@ export {
   Label,
   Message,
   NavItem,
+  NavItemDivider,
   NewVersionAvailable,
   PageHeading,
   Pagination,
@@ -146,4 +150,8 @@ export {
   createStore,
   useStore,
   withStore,
+  LabelWithValue,
+  withError,
+  Table,
+  InputWithIcon,
 };

@@ -2,10 +2,10 @@ import React, { createContext, useEffect, useRef, useState } from 'react';
 import { Popover } from '@headlessui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { InfoButton } from './InfoButton';
-import { Input } from './Input';
 import { Label } from './Label';
 import { Manager, Popper, Reference } from 'react-popper';
 import { Button } from './Button';
+import { InputWithIcon } from './utils/InputWithIcon';
 
 // Interface
 interface ISelect extends IBase {
@@ -526,7 +526,7 @@ function GroupedSelect(props: IGroupedSelect) {
                       }
                     >
                       {!noSearch && (
-                        <Input
+                        <InputWithIcon
                           autoFocus={false} // set too false to not make page jump on initial open
                           autoComplete="off"
                           inputId="ui-framework-search"

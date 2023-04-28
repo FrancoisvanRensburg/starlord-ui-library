@@ -1,10 +1,9 @@
-
-import React, { useRef, useContext } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Manager, Reference, Popper } from "react-popper";
-import { MonthPickerCtx, useMonthPickerCtx } from "./MonthPickerContext";
-import moment from "moment";
-import { Input } from "../Input";
+import React, { useRef, useContext } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Manager, Reference, Popper } from 'react-popper';
+import { MonthPickerCtx, useMonthPickerCtx } from './MonthPickerContext';
+import moment from 'moment';
+import { InputWithIcon } from '../utils/InputWithIcon';
 
 interface IMonthPicker {
   dateFrom: Date;
@@ -21,23 +20,23 @@ interface IMonthPicker {
 }
 
 const monthNames = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December"
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
 ];
 
 export const inputStyle = {
-  paddingTop: "0.375rem",
-  paddingBottom: "0.375rem"
+  paddingTop: '0.375rem',
+  paddingBottom: '0.375rem',
 };
 
 function MonthPicker(props: IMonthPicker) {
@@ -52,7 +51,7 @@ function MonthPicker(props: IMonthPicker) {
     disabled,
     minDate,
     maxDate,
-    dataTest
+    dataTest,
   } = props;
 
   let date = new Date();
@@ -71,32 +70,41 @@ function MonthPicker(props: IMonthPicker) {
   );
 
   return (
-    <MonthPickerCtx.Provider value={ctxValue} key={ctxValue.isVisible.toString()}>
+    <MonthPickerCtx.Provider
+      value={ctxValue}
+      key={ctxValue.isVisible.toString()}
+    >
       {/* @ts-ignore */}
       <Manager>
         {/* @ts-ignore */}
         <Reference>
           {({ ref }) => (
             <div>
-              <Input
+              <InputWithIcon
                 reference={ref}
                 pointer
                 onKeyPress={(e: any) => {
-                  if (e.key === "Enter") {
+                  if (e.key === 'Enter') {
                     ctxValue.toggleCalendar();
                   }
                 }}
                 onClick={() => {
                   ctxValue.toggleCalendar();
                 }}
-                value={dateFrom ? moment(date).format("MMMM YYYY") : ""}
+                value={dateFrom ? moment(date).format('MMMM YYYY') : ''}
                 readOnly
                 label={label}
                 dataTest={dataTest}
                 labelInline={labelInline}
                 containerClassName={containerClassName}
                 placeholder={placeholder}
-                appendIcon={disabled ? undefined : ctxValue.isVisible ? "caret-up" : "caret-down"}
+                appendIcon={
+                  disabled
+                    ? undefined
+                    : ctxValue.isVisible
+                    ? 'caret-up'
+                    : 'caret-down'
+                }
                 onAppendIconClick={() => {
                   ctxValue.toggleCalendar();
                 }}
@@ -111,14 +119,14 @@ function MonthPicker(props: IMonthPicker) {
           // @ts-ignore
           <Popper
             placement="bottom-start"
-            innerRef={node => (popupNode.current = node)}
+            innerRef={(node) => (popupNode.current = node)}
             modifiers={[
               {
-                name: "offset",
+                name: 'offset',
                 options: {
-                  offset: [0, 5]
-                }
-              }
+                  offset: [0, 5],
+                },
+              },
             ]}
           >
             {({ ref, style, placement }) =>
@@ -141,49 +149,57 @@ interface CalendarProps {
   ref: React.Ref<HTMLDivElement>;
 }
 
-const Calendar: React.FC<CalendarProps> = React.forwardRef<HTMLDivElement, CalendarProps>(
-  (props, ref) => {
-    const { view } = useContext(MonthPickerCtx);
+const Calendar: React.FC<CalendarProps> = React.forwardRef<
+  HTMLDivElement,
+  CalendarProps
+>((props, ref) => {
+  const { view } = useContext(MonthPickerCtx);
 
-    let selectionComponent = null;
-    switch (view) {
-      case "month":
-        selectionComponent = <MonthSelection />;
-        break;
-      case "year":
-        selectionComponent = <YearSelection />;
-        break;
-    }
-
-    return (
-      <div
-        className="u-focus bg-white z-40 relative shadow-lg max-w-xs w-64 p-2 rounded-lg u-black-ring"
-        ref={ref}
-        data-placement={props.placement}
-        // @ts-ignore
-        style={props.style}
-      >
-        {selectionComponent}
-      </div>
-    );
+  let selectionComponent = null;
+  switch (view) {
+    case 'month':
+      selectionComponent = <MonthSelection />;
+      break;
+    case 'year':
+      selectionComponent = <YearSelection />;
+      break;
   }
-);
 
-const MonthSelection: React.FC<{}> = _ => {
-  const { viewYears, selectMonth, nextYear, prevYear, visible, isSelectedMonth, isWithinRange } =
-    useContext(MonthPickerCtx);
+  return (
+    <div
+      className="u-focus bg-white z-40 relative shadow-lg max-w-xs w-64 p-2 rounded-lg u-black-ring"
+      ref={ref}
+      data-placement={props.placement}
+      // @ts-ignore
+      style={props.style}
+    >
+      {selectionComponent}
+    </div>
+  );
+});
+
+const MonthSelection: React.FC<{}> = (_) => {
+  const {
+    viewYears,
+    selectMonth,
+    nextYear,
+    prevYear,
+    visible,
+    isSelectedMonth,
+    isWithinRange,
+  } = useContext(MonthPickerCtx);
 
   return (
     <div
       className="h-48"
       style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr 1fr 1fr",
-        gridTemplateRows: "2rem auto",
-        alignItems: "stretch"
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr 1fr 1fr',
+        gridTemplateRows: '2rem auto',
+        alignItems: 'stretch',
       }}
     >
-      <div className="flex" style={{ gridColumn: "1/5" }}>
+      <div className="flex" style={{ gridColumn: '1/5' }}>
         <CalendarButton chevron="left" onClick={() => prevYear()} />
         <CalendarButton className="flex-grow" onClick={() => viewYears()}>
           {visible.year}
@@ -203,9 +219,9 @@ const MonthSelection: React.FC<{}> = _ => {
               }
             }}
             className={`u-focus hover:bg-gray-200 rounded p-1 ${
-              isSelectedMonth(index) ? "bg-gray-300 font-semibold " : ""
+              isSelectedMonth(index) ? 'bg-gray-300 font-semibold ' : ''
             }
-            ${inRange ? "" : " text-gray-400 cursor-not-allowed"}`}
+            ${inRange ? '' : ' text-gray-400 cursor-not-allowed'}`}
           >
             {month.substring(0, 3)}
           </CalendarButton>
@@ -215,12 +231,12 @@ const MonthSelection: React.FC<{}> = _ => {
   );
 };
 
-const YearSelection: React.FC<{}> = _ => {
+const YearSelection: React.FC<{}> = (_) => {
   const {
     selectYear,
     prevDecade,
     nextDecade,
-    visible: { year }
+    visible: { year },
   } = useContext(MonthPickerCtx);
 
   let years = [];
@@ -238,15 +254,17 @@ const YearSelection: React.FC<{}> = _ => {
     <div
       className="h-48"
       style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr 1fr 1fr",
-        gridTemplateRows: "2rem auto",
-        alignItems: "stretch"
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr 1fr 1fr',
+        gridTemplateRows: '2rem auto',
+        alignItems: 'stretch',
       }}
     >
-      <div className="flex" style={{ gridColumn: "1/5" }}>
+      <div className="flex" style={{ gridColumn: '1/5' }}>
         <CalendarButton chevron="left" onClick={() => prevDecade()} />
-        <CalendarButton className="flex-grow">{`${minYear} - ${maxYear - 1}`}</CalendarButton>
+        <CalendarButton className="flex-grow">{`${minYear} - ${
+          maxYear - 1
+        }`}</CalendarButton>
         <CalendarButton chevron="right" onClick={() => nextDecade()} />
       </div>
 
@@ -256,18 +274,22 @@ const YearSelection: React.FC<{}> = _ => {
 };
 
 const CalendarButton: React.FC<{
-  chevron?: "right" | "left";
+  chevron?: 'right' | 'left';
   className?: string;
   style?: React.StyleHTMLAttributes<HTMLButtonElement>;
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   children?: any;
-}> = props => {
+}> = (props) => {
   let children = null;
 
-  if (props.chevron && props.chevron === "left")
-    children = <FontAwesomeIcon icon="chevron-left" className="stroke-current" />;
-  else if (props.chevron && props.chevron === "right")
-    children = <FontAwesomeIcon icon="chevron-right" className="stroke-current" />;
+  if (props.chevron && props.chevron === 'left')
+    children = (
+      <FontAwesomeIcon icon="chevron-left" className="stroke-current" />
+    );
+  else if (props.chevron && props.chevron === 'right')
+    children = (
+      <FontAwesomeIcon icon="chevron-right" className="stroke-current" />
+    );
   else children = props.children;
 
   return (

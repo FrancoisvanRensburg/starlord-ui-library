@@ -10,7 +10,7 @@ const App = () => {
     <div>
       <Thing />
       <Switch checked={false} onChange={() => {}} />
-      <Input />
+      <Input label={'This is the input'} placeholder={'This is me'} />
     </div>
   );
 };

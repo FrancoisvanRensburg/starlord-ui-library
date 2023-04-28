@@ -2,7 +2,7 @@ import React from 'react';
 import { Input } from '../Input';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function InputWithAppendIcon(props: any) {
+function InputWithIcon(props: any) {
   let {
     appendIcon,
     appendIconId,
@@ -34,7 +34,7 @@ function InputWithAppendIcon(props: any) {
   }
 
   return (
-    <>
+    <div>
       <Input {...restProps} inputClasses={inputClasses} />
       {(appendIcon || onClearSearch) && (
         <div className={'absolute inset-y-0 right-0 mr-3 flex items-center'}>
@@ -69,8 +69,8 @@ function InputWithAppendIcon(props: any) {
           )}
         </div>
       )}
-    </>
+    </div>
   );
 }
 
-export { InputWithAppendIcon };
+export { InputWithIcon };
