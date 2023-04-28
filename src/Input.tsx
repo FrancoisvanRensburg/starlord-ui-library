@@ -180,7 +180,7 @@ function Input(props: IInputProps) {
         autoComplete === 'off' ? 'something-chrome-does-not-know' : autoComplete
       } // setting autoComplete to off is not reliable
       className={
-        'focus:outline-none focus:ring-1 focus:ring-primary focus:border-transparent shadow-sm block w-full border-gray-300 rounded-md ' +
+        'u-input ' +
         inputClasses +
         ' ' +
         (disabled ? ' bg-gray-100' : '') +
