@@ -1,5 +1,5 @@
 {
-  "version": "0.1.225-beta",
+  "version": "0.1.226-beta",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -9,6 +9,10 @@
   ],
   "engines": {
     "node": ">=10"
+  },
+  "bugs": {
+    "url": "https://github.com/FrancoisvanRensburg/starlord-ui-library/issues",
+    "email": "jvrensburgfrans@gmail.com"
   },
   "scripts": {
     "start": "tsdx watch",
