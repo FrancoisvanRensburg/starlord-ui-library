@@ -1,181 +1,152 @@
-# TSDX React w/ Storybook User Guide
+# Starlord ui library
 
-Congrats! You just saved yourself hours of work by bootstrapping this project with TSDX. Let’s get you oriented with what’s here and how to use it.
+Starlord UI Library is a component library built with Tailwind CSS and TypeScript. The library provides a collection of reusable UI components that can be used to create beautiful and functional user interfaces for web applications.
 
-> This TSDX setup is meant for developing React component libraries (not apps!) that can be published to NPM. If you’re looking to build a React-based app, you should use `create-react-app`, `razzle`, `nextjs`, `gatsby`, or `react-static`.
+To get you started, let's install the library
 
-> If you’re new to TypeScript and React, checkout [this handy cheatsheet](https://github.com/sw-yx/react-typescript-cheatsheet/)
+## Installation
 
-## Commands
+> npm install starlord-ui-library
 
-TSDX scaffolds your new library inside `/src`, and also sets up a [Parcel-based](https://parceljs.org) playground for it inside `/example`.
+or
 
-The recommended workflow is to run TSDX in one terminal:
+> yarn add starlord-ui-library
 
-```bash
-npm start # or yarn start
+The library is built with Tailwind CSS and TypeScript. To use the library, you need to install Tailwind CSS and its dependencies.
+
+Then add the css file to your project at `index.tsx`
+
+`import "starlord-ui-library/dist/tailwind.css"`
+
+Then we need to add "fluff" to the index.scss file. `example/styles/index.scss`
+
+Populate the `tailwind.config.js` file with the following:
+
+```
+const colors = require("tailwindcss/colors");
+
+module.exports = {
+  content: {
+    enabled: true,
+    content: [
+      "./src/*.{js,jsx,ts,tsx}",
+      "./src/**/*.{js,jsx,ts,tsx}",
+      "./src/**/**/*.{js,jsx,ts,tsx}",
+      "./node_modules/uafrica-ui-framework/build/*.{js,jsx,ts,tsx}",
+      "./public/index.html"
+    ],
+    options: {
+      safelist: [/data-theme$/]
+    }
+  },
+  media: false, // or 'media' or 'class'
+  theme: {
+    screens: {
+      xs: "475px",
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1536px"
+    },
+    boxShadow: {
+      sm: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+      DEFAULT: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
+      md: "0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)",
+      lg: "0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03)",
+      xl: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+      "2xl": "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+      "3xl": "0 35px 60px -15px rgba(0, 0, 0, 0.3)",
+      inner: "inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)",
+      none: "none"
+    },
+    extend: {
+      spacing: {
+        120: "30rem"
+      },
+      transitionProperty: {
+        width: "width"
+      },
+      colors: {
+        transparent: "transparent",
+        current: "currentColor",
+        black: colors.black,
+        white: colors.white,
+        gray: colors.neutral,
+        turquise: colors.turquise,
+        indigo: colors.indigo,
+        red: { ...colors.red, light: "#FCA5A5", DEFAULT: "#DC2626", dark: "#991B1B" },
+        green: {
+          ...colors.green,
+          100: "rgb(231, 255, 209)",
+          500: "#06b73d",
+          DEFAULT: "#06b73d"
+        },
+        pink: {
+          ...colors.pink,
+          100: "#FFDFDC",
+          500: "#FF024E",
+          DEFAULT: "#FF024E"
+        },
+        yellow: {
+          ...colors.yellow,
+          100: "#FFFBD3",
+          500: "#FFB600",
+          DEFAULT: "#FFB600"
+        },
+        blue: {
+          ...colors.blue,
+          light: "#D6ECFF",
+          DEFAULT: "#007BFF",
+          dark: "#0060C7",
+          100: "rgb(214, 236, 255)",
+          500: "#0076fa"
+        },
+        primary: {
+          ...colors.primary,
+          light: "#D6ECFF",
+          DEFAULT: "#1ABC9C",
+          dark: "#148F77",
+          50: "rgb(238, 252, 249)",
+          100: "rgb(182, 234, 225)",
+          500: "#3DC7AE"
+        }
+      }
+    },
+    fontFamily: {
+      display: ["Montserrat"],
+      body: ["Montserrat"]
+    },
+    borderWidth: {
+      DEFAULT: "1px",
+      0: "0",
+      2: "2px",
+      3: "3px",
+      4: "4px",
+      6: "6px",
+      8: "8px"
+    }
+  },
+  variants: {
+    extend: {
+      opacity: ["disabled"]
+    }
+  }
+};
 ```
 
-This builds to `/dist` and runs the project in watch mode so any edits you save inside `src` causes a rebuild to `/dist`.
+## Customization
 
-Then run either Storybook or the example playground:
+Starlord UI Library uses Tailwind CSS under the hood, which means that you can customize the appearance of the components by modifying the Tailwind CSS configuration in your project.
 
-### Storybook
+To customize the appearance of the components, you need to install Tailwind CSS and its dependencies.
 
-Run inside another terminal:
+Then add the css file to your project at `index.tsx`
 
-```bash
-yarn storybook
-```
+## Contributing
 
-This loads the stories from `./stories`.
+Contributions to Starlord UI Library are welcome and appreciated! If you find a bug or have a feature request, please open an issue on the GitHub repository.
 
-> NOTE: Stories should reference the components as if using the library, similar to the example playground. This means importing from the root project directory. This has been aliased in the tsconfig and the storybook webpack config as a helper.
+## License
 
-### Example
-
-Then run the example inside another:
-
-```bash
-cd example
-npm i # or yarn to install dependencies
-npm start # or yarn start
-```
-
-The default example imports and live reloads whatever is in `/dist`, so if you are seeing an out of date component, make sure TSDX is running in watch mode like we recommend above. **No symlinking required**, we use [Parcel's aliasing](https://parceljs.org/module_resolution.html#aliases).
-
-To do a one-off build, use `npm run build` or `yarn build`.
-
-To run tests, use `npm test` or `yarn test`.
-
-## Configuration
-
-Code quality is set up for you with `prettier`, `husky`, and `lint-staged`. Adjust the respective fields in `package.json` accordingly.
-
-### Jest
-
-Jest tests are set up to run with `npm test` or `yarn test`.
-
-### Bundle analysis
-
-Calculates the real cost of your library using [size-limit](https://github.com/ai/size-limit) with `npm run size` and visulize it with `npm run analyze`.
-
-#### Setup Files
-
-This is the folder structure we set up for you:
-
-```txt
-/example
-  index.html
-  index.tsx       # test your component here in a demo app
-  package.json
-  tsconfig.json
-/src
-  index.tsx       # EDIT THIS
-/test
-  blah.test.tsx   # EDIT THIS
-/stories
-  Thing.stories.tsx # EDIT THIS
-/.storybook
-  main.js
-  preview.js
-.gitignore
-package.json
-README.md         # EDIT THIS
-tsconfig.json
-```
-
-#### React Testing Library
-
-We do not set up `react-testing-library` for you yet, we welcome contributions and documentation on this.
-
-### Rollup
-
-TSDX uses [Rollup](https://rollupjs.org) as a bundler and generates multiple rollup configs for various module formats and build settings. See [Optimizations](#optimizations) for details.
-
-### TypeScript
-
-`tsconfig.json` is set up to interpret `dom` and `esnext` types, as well as `react` for `jsx`. Adjust according to your needs.
-
-## Continuous Integration
-
-### GitHub Actions
-
-Two actions are added by default:
-
-- `main` which installs deps w/ cache, lints, tests, and builds on all pushes against a Node and OS matrix
-- `size` which comments cost comparison of your library on every pull request using [size-limit](https://github.com/ai/size-limit)
-
-## Optimizations
-
-Please see the main `tsdx` [optimizations docs](https://github.com/palmerhq/tsdx#optimizations). In particular, know that you can take advantage of development-only optimizations:
-
-```js
-// ./types/index.d.ts
-declare var __DEV__: boolean;
-
-// inside your code...
-if (__DEV__) {
-  console.log('foo');
-}
-```
-
-You can also choose to install and use [invariant](https://github.com/palmerhq/tsdx#invariant) and [warning](https://github.com/palmerhq/tsdx#warning) functions.
-
-## Module Formats
-
-CJS, ESModules, and UMD module formats are supported.
-
-The appropriate paths are configured in `package.json` and `dist/index.js` accordingly. Please report if any issues are found.
-
-## Deploying the Example Playground
-
-The Playground is just a simple [Parcel](https://parceljs.org) app, you can deploy it anywhere you would normally deploy that. Here are some guidelines for **manually** deploying with the Netlify CLI (`npm i -g netlify-cli`):
-
-```bash
-cd example # if not already in the example folder
-npm run build # builds to dist
-netlify deploy # deploy the dist folder
-```
-
-Alternatively, if you already have a git repo connected, you can set up continuous deployment with Netlify:
-
-```bash
-netlify init
-# build command: yarn build && cd example && yarn && yarn build
-# directory to deploy: example/dist
-# pick yes for netlify.toml
-```
-
-## Named Exports
-
-Per Palmer Group guidelines, [always use named exports.](https://github.com/palmerhq/typescript#exports) Code split inside your React app instead of your React library.
-
-## Including Styles
-
-There are many ways to ship styles, including with CSS-in-JS. TSDX has no opinion on this, configure how you like.
-
-For vanilla CSS, you can include it at the root directory and add it to the `files` section in your `package.json`, so that it can be imported separately by your users and run through their bundler's loader.
-
-## Publishing to NPM
-
-We recommend using [np](https://github.com/sindresorhus/np).
-
-## Usage with Lerna
-
-When creating a new package with TSDX within a project set up with Lerna, you might encounter a `Cannot resolve dependency` error when trying to run the `example` project. To fix that you will need to make changes to the `package.json` file _inside the `example` directory_.
-
-The problem is that due to the nature of how dependencies are installed in Lerna projects, the aliases in the example project's `package.json` might not point to the right place, as those dependencies might have been installed in the root of your Lerna project.
-
-Change the `alias` to point to where those packages are actually installed. This depends on the directory structure of your Lerna project, so the actual path might be different from the diff below.
-
-```diff
-   "alias": {
--    "react": "../node_modules/react",
--    "react-dom": "../node_modules/react-dom"
-+    "react": "../../../node_modules/react",
-+    "react-dom": "../../../node_modules/react-dom"
-   },
-```
-
-An alternative to fixing this problem would be to remove aliases altogether and define the dependencies referenced as aliases as dev dependencies instead. [However, that might cause other problems.](https://github.com/palmerhq/tsdx/issues/64)
+Starlord UI Library is open source software under the MIT Licence
