@@ -12,7 +12,7 @@ import { Manager, Popper, Reference } from 'react-popper';
 
 // Interface
 interface IDropdown {
-  children: any;
+  children: React.ReactNode;
   title?: string;
   square?: boolean;
   icon?: IconProp;
@@ -104,14 +104,11 @@ function useDropdownMenuCtx(
 }
 
 function DropdownMenu(props: IDropdown) {
-  let {
+  const {
     title,
     icon,
     noBackground,
     id,
-    widthClass,
-    color,
-    placement,
     square,
     buttonWidth,
     between,
@@ -121,6 +118,8 @@ function DropdownMenu(props: IDropdown) {
     rightRounded,
     buttonStyle,
   } = props;
+
+  let { placement, widthClass, color } = props;
 
   const popupNode = useRef<HTMLElement>();
   const ctxValue = useDropdownMenuCtx(popupNode);
@@ -227,7 +226,6 @@ function DropdownMenu(props: IDropdown) {
                     ctxValue.hideDropdownMenu();
                   }}
                   ref={ref}
-                  // @ts-ignore
                   style={{ margin: 0, ...style }}
                   className={
                     'z-50 origin-top-right absolute right-0 rounded-md shadow-lg bg-white u-black-ring focus:outline-none m-1 ' +
@@ -246,7 +244,8 @@ function DropdownMenu(props: IDropdown) {
 }
 
 function ContextMenu(props: IDropdown) {
-  let { id, widthClass } = props;
+  const { id } = props;
+  let { widthClass } = props;
 
   widthClass = widthClass ? widthClass : 'w-72';
 
