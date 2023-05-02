@@ -81,7 +81,7 @@ function useDropdownMenuCtx(
 
   useEffect(() => {
     function mouseDownListener(e: MouseEvent) {
-      let targetAsNode: any = e.target;
+      const targetAsNode: any = e.target;
       if (ref.current && !ref.current.contains(targetAsNode)) {
         setVisible(false);
       }
@@ -281,7 +281,7 @@ function ContextMenu(props: IDropdown) {
 }
 
 function MenuItem(props: IMenuItem) {
-  let { title, icon, id, disabled, isLoading, closeOnClick } = props;
+  const { title, icon, id, disabled, isLoading, closeOnClick } = props;
 
   let iconToShow = icon;
 
@@ -351,7 +351,7 @@ function MenuItemContainer(props: IMenuItemContainer) {
 }
 
 function MenuHeading(props: IMenuHeading) {
-  let { title, icon, id } = props;
+  const { title, icon, id } = props;
 
   return (
     <div id={id}>
