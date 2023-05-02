@@ -16,15 +16,15 @@ interface IInputProps {
   name?: string;
   defaultValue?: any;
   value?: any;
-  validationError?: any;
+  validationError?: { message: string };
   type?: string;
-  onChange?: any;
+  onChange?: React.ChangeEventHandler<HTMLInputElement | undefined>;
   onClick?: any;
   onFocus?: any;
   onBlur?: any;
   onKeyPress?: any;
   onKeyUp?: any;
-  step?: any;
+  step?: number;
   min?: number;
   max?: number;
   maxLength?: number;
@@ -63,17 +63,15 @@ interface IInputProps {
 }
 // Implementation
 function Input(props: IInputProps) {
-  let {
+  const {
     label,
     htmlFor,
-    labelClassName,
     inputFieldId,
     readOnly,
     inputFieldStyle,
     placeholder,
     register,
     reference,
-    type,
     name,
     defaultValue,
     value,
@@ -117,10 +115,11 @@ function Input(props: IInputProps) {
     dataTest,
   } = props;
 
+  let { type, labelClassName } = props;
+
   type = type ? type : 'text';
   labelClassName = labelClassName ? labelClassName : '';
 
-  // @ts-ignore
   let inputClasses = prependPadding
     ? ` ${prependPadding} `
     : prependText
