@@ -12,7 +12,7 @@ interface IButtonProps {
   icon?: IconProp;
   iconSize?: SizeProp;
   tabIndex?: number | undefined;
-  onClick?: () => void;
+  onClick?: any;
   center?: boolean;
   className?: string;
   disabled?: boolean;
@@ -28,7 +28,7 @@ interface ILinkProps {
   small?: boolean;
   icon?: IconProp;
   color?: string;
-  onClick?: () => void;
+  onClick?: any;
   center?: boolean;
   className?: string;
   disabled?: boolean;
