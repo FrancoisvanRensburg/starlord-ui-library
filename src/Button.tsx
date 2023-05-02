@@ -12,7 +12,7 @@ interface IButtonProps {
   icon?: IconProp;
   iconSize?: SizeProp;
   tabIndex?: number | undefined;
-  onClick?: any;
+  onClick?: () => void;
   center?: boolean;
   className?: string;
   disabled?: boolean;
@@ -28,7 +28,7 @@ interface ILinkProps {
   small?: boolean;
   icon?: IconProp;
   color?: string;
-  onClick?: any;
+  onClick?: () => void;
   center?: boolean;
   className?: string;
   disabled?: boolean;
@@ -46,7 +46,7 @@ interface ILinkBaseProps extends ILinkProps {
 }
 
 interface IButtonsPanelProps {
-  children: any;
+  children: React.ReactNode;
   center?: boolean;
   left?: boolean;
   noMargin?: boolean;
@@ -191,7 +191,7 @@ function BaseLink(props: ILinkBaseProps) {
 }
 
 function BaseButton(props: IButtonBaseProps) {
-  let {
+  const {
     isLoading,
     loadingTitle,
     icon,
@@ -208,7 +208,7 @@ function BaseButton(props: IButtonBaseProps) {
     rightRounded,
   } = props;
 
-  let disabledOrLoading = disabled || isLoading;
+  const disabledOrLoading = disabled || isLoading;
 
   let iconToShow = icon;
   let iconClass = '';
@@ -218,7 +218,7 @@ function BaseButton(props: IButtonBaseProps) {
     iconClass = 'button-loader-spinning';
   }
 
-  let textToShow = isLoading && loadingTitle ? loadingTitle + '...' : title;
+  const textToShow = isLoading && loadingTitle ? loadingTitle + '...' : title;
 
   return (
     <button
@@ -254,7 +254,7 @@ function BaseButton(props: IButtonBaseProps) {
 }
 
 function ButtonsPanel(props: IButtonsPanelProps) {
-  let { noMargin, children, center, left } = props;
+  const { noMargin, children, center, left } = props;
   let align = 'justify-between';
 
   let nonEmptyChildren = [];
