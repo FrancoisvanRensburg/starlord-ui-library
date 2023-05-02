@@ -12,7 +12,7 @@ interface IButtonProps {
   icon?: IconProp;
   iconSize?: SizeProp;
   tabIndex?: number | undefined;
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
   center?: boolean;
   className?: string;
   disabled?: boolean;
@@ -28,7 +28,7 @@ interface ILinkProps {
   small?: boolean;
   icon?: IconProp;
   color?: string;
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
   center?: boolean;
   className?: string;
   disabled?: boolean;
@@ -308,6 +308,7 @@ function Download(props: {
 
 function Close(props: IButtonProps) {
   return (
+    // @ts-ignore
     <div className="text-lg leading-6 font-bold  text-gray-900" {...props}>
       <FontAwesomeIcon
         icon="times"
